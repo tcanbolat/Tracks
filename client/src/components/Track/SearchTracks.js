@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { AppoloConsumer, ApolloConsumer } from "react-apollo";
+import { ApolloConsumer } from "react-apollo";
 import { gql } from "apollo-boost";
 import withStyles from "@material-ui/core/styles/withStyles";
 import TextField from "@material-ui/core/TextField";
@@ -40,7 +40,6 @@ const SearchTracks = ({ classes, setSearchResults }) => {
               inputRef={inputEl}
               fullWidth
               placeholder="Search all tracks"
-              inputProps={{ disableUnderline: true }}
             />
             <IconButton type="submit">
               <SearchIcon />
@@ -73,7 +72,7 @@ const SEARCH_TRACKS_QUERY = gql`
 const styles = (theme) => ({
   root: {
     padding: "2px 4px",
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
     display: "flex",
     alignItems: "center",
   },

@@ -64,6 +64,12 @@ const CreateTrack = ({ classes }) => {
     createTrack({ variables: { title, description, url: uploadedUrl } });
   };
 
+  const handleUpdateCache = (cache, { data: { createTrack } }) => {
+    const data = cache.readQuery({ query: GET_TRACKS_QUERY });
+    const tracks = data.tracks.concat(createTrack.track);
+    cache.writeQuery({ query: GET_TRACKS_QUERY, data: { tracks } });
+  };
+
   return (
     <>
       <Fab
@@ -84,7 +90,7 @@ const CreateTrack = ({ classes }) => {
           setDescription("");
           setFile("");
         }}
-        refetchQueries={() => [{ query: GET_TRACKS_QUERY }]}
+        update={handleUpdateCache}
       >
         {(createTrack, { loading, error }) => {
           if (error) return <Error error={error} />;
@@ -182,6 +188,13 @@ const CREATE_TRACK_MUTATION = gql`
         title
         description
         url
+        likes {
+          id
+        }
+        postedBy {
+          id
+          username
+        }
       }
     }
   }
@@ -197,7 +210,7 @@ const styles = (theme) => ({
     maxWidth: 550,
   },
   textField: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
   },
   cancel: {
     color: "red",
@@ -206,18 +219,18 @@ const styles = (theme) => ({
     color: "green",
   },
   button: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
   icon: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(),
   },
   input: {
     display: "none",
   },
   fab: {
     position: "fixed",
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2,
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
     zIndex: "200",
   },
 });

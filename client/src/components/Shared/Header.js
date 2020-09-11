@@ -11,7 +11,7 @@ import Signout from "../Auth/Signout";
 
 const Header = ({ classes, currentUser }) => {
   return (
-    <AppBar className={classes.root} position="statice">
+    <AppBar className={classes.root} position="static">
       <Toolbar>
         <Link className={classes.grow} to="/">
           <RadioIcon className={classes.logo} color="secondary" />
@@ -46,11 +46,11 @@ const styles = (theme) => ({
     textDecoration: "none",
   },
   logo: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
     fontSize: 45,
   },
   faceIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(),
     fontSize: 30,
     color: "white",
   },

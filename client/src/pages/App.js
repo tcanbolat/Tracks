@@ -49,7 +49,7 @@ const styles = (theme) => ({
   container: {
     margin: "0 auto",
     maxWidth: 960,
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
 });
 

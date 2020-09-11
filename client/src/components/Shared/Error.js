@@ -22,7 +22,7 @@ const Error = ({ classes, error }) => {
 
 const styles = (theme) => ({
   snackbar: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
   },
 });
 
