@@ -35,7 +35,7 @@ const Profile = ({ classes, match }) => {
             </Card>
             <Paper className={classes.paper} elevation={1}>
               <Typography className={classes.title} variant="h6">
-                <AudiotrackIcon className={classes.AudiotrackIcon} />
+                <AudiotrackIcon className={classes.audioIcon} />
                 Created Tracks
               </Typography>
               {data.user.trackSet.map((track) => (
@@ -50,7 +50,7 @@ const Profile = ({ classes, match }) => {
             </Paper>
             <Paper className={classes.paper} elevation={1}>
               <Typography className={classes.title} variant="h6">
-                <ThumbUpIcon className={classes.ThumbIcon} />
+                <ThumbUpIcon className={classes.thumbIcon} />
                 Liked Tracks
               </Typography>
               {data.user.likeSet.map(({ track }) => (
@@ -130,7 +130,7 @@ const styles = (theme) => ({
   },
   audioIcon: {
     color: "purple",
-    fontSize: 30,
+    fontSize: 35,
     marginRight: theme.spacing(),
   },
   thumbIcon: {

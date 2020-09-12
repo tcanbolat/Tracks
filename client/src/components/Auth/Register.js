@@ -19,9 +19,9 @@ import Gavel from "@material-ui/icons/Gavel";
 import VerifiedUserTwoTone from "@material-ui/icons/VerifiedUserTwoTone";
 import Error from "../Shared/Error";
 
-function Transition(props) {
-  return <Slide direction="up" {...props} />;
-};
+const Transition = React.forwardRef((props, ref) => {
+  return <Slide direction="up" {...props} ref={ref}/>;
+});
 
 const Register = ({ classes, setNewUser }) => {
   const [username, setUsername] = useState("");
@@ -94,7 +94,12 @@ const Register = ({ classes, setNewUser }) => {
                 >
                   {loading ? "Registering..." : "Register"}
                 </Button>
-                <Button onClick={() => setNewUser(false)} color="primary" variant="outlined" fullWidth>
+                <Button
+                  onClick={() => setNewUser(false)}
+                  color="primary"
+                  variant="outlined"
+                  fullWidth
+                >
                   Previous user? Log in here
                 </Button>
                 {/* {Error Handling} */}

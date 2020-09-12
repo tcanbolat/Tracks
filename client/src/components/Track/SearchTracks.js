@@ -1,6 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { ApolloConsumer } from "react-apollo";
 import { gql } from "apollo-boost";
+import { SearchBarContext } from "../../context/searchBar-context";
 import withStyles from "@material-ui/core/styles/withStyles";
 import TextField from "@material-ui/core/TextField";
 import ClearIcon from "@material-ui/icons/Clear";
@@ -12,7 +13,10 @@ const SearchTracks = ({ classes, setSearchResults }) => {
   const [search, setSearch] = useState("");
   const inputEl = useRef();
 
+const toggle = useContext(SearchBarContext).toggleSearchBar;
+
   const clearSearchInput = () => {
+    toggle()
     setSearchResults([]);
     setSearch("");
     inputEl.current.focus();
@@ -29,7 +33,7 @@ const SearchTracks = ({ classes, setSearchResults }) => {
   return (
     <ApolloConsumer>
       {(client) => (
-        <form onSubmit={(e) => handleSubmit(e, client)}>
+        <form className={classes.form} onSubmit={(e) => handleSubmit(e, client)}>
           <Paper className={classes.root} elevation={1}>
             <IconButton onClick={clearSearchInput}>
               <ClearIcon />
@@ -71,11 +75,17 @@ const SEARCH_TRACKS_QUERY = gql`
 
 const styles = (theme) => ({
   root: {
-    padding: "2px 4px",
-    margin: theme.spacing(),
+    position: "fixed",
+    margin: theme.spacing(1),
     display: "flex",
-    alignItems: "center",
+    top: "0",
+    zIndex: "1200",
+    width: "65%"
   },
+  form: {
+    display: "flex",
+    justifyContent: "center",
+  }
 });
 
 export default withStyles(styles)(SearchTracks);

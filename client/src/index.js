@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Root from "./Root";
+import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import { ApolloProvider, Query } from "react-apollo";
 import ApolloClient, { gql } from "apollo-boost";

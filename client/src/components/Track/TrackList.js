@@ -5,10 +5,10 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionActions from "@material-ui/core/AccordionActions";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AudioPlayer from "../Shared/AudioPlayer";
 import LikeTrack from "./LikeTrack";
@@ -18,13 +18,13 @@ import UpdateTrack from "./UpdateTrack";
 const TrackList = ({ classes, tracks }) => (
   <List>
     {tracks.map((track) => (
-      <ExpansionPanel key={track.id}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+      <Accordion key={track.id}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <ListItem className={classes.root}>
             <LikeTrack trackId={track.id} likeCount={track.likes.length} />
             <ListItemText
               primaryTypographyProps={{
-                variant: "subheading",
+                variant: "subtitle1",
                 color: "primary",
               }}
               primary={track.title}
@@ -39,15 +39,15 @@ const TrackList = ({ classes, tracks }) => (
             />
             <AudioPlayer url={track.url} />
           </ListItem>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails className={classes.details}>
+        </AccordionSummary>
+        <AccordionDetails className={classes.details}>
           <Typography variant="body1">{track.description}</Typography>
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
+        </AccordionDetails>
+        <AccordionActions>
           <UpdateTrack track={track} />
           <DeleteTrack track={track} />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
+        </AccordionActions>
+      </Accordion>
     ))}
   </List>
 );

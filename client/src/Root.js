@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import withRoot from "./withRoot";
 import { Query } from "react-apollo";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
@@ -9,30 +9,61 @@ import Profile from "./pages/Profile";
 import Header from "./components/Shared/Header";
 import Loading from "./components/Shared/Loading";
 import Error from "./components/Shared/Error";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import SearchBarProvider from "./context/searchBar-context";
 
 export const UserContext = React.createContext();
 
-const Root = () => (
-  <Query query={ME_QUERY} fetchPolicy='cache-and-network'>
-    {({ data, loading, error }) => {
-      if (loading) return <Loading />;
-      if (error) return <Error error={error} />;
-      const currentUser = data.me;
+const Root = (props) => {
+  const [searchToggle, setSearchToggle] = useState(false);
+  const darkTheme = createMuiTheme({
+    palette: {
+      type: "dark",
+    },
+    typography: {
+      allVariants: {
+        color: "white",
+      },
+    },
+  });
 
-      return (
-        <BrowserRouter>
-          <UserContext.Provider value={currentUser}>
-            <Header currentUser={currentUser} />
-            <Switch>
-              <Route exact path="/" component={App} />
-              <Route path="/profile/:id" component={Profile} />
-            </Switch>
-          </UserContext.Provider>
-        </BrowserRouter>
-      );
-    }}
-  </Query>
-);
+  return (
+    <Query query={ME_QUERY} fetchPolicy="cache-and-network">
+      {({ data, loading, error }) => {
+        if (loading) return <Loading />;
+        if (error) return <Error error={error} />;
+        const currentUser = data.me;
+
+        return (
+          <BrowserRouter>
+            <ThemeProvider theme={darkTheme}>
+              <CssBaseline />
+              <UserContext.Provider value={currentUser}>
+                <SearchBarProvider>
+                  <Header
+                    searchToggle={setSearchToggle}
+                    currentUser={currentUser}
+                  />
+                  <Switch>
+                    <Route
+                      exact
+                      path="/"
+                      component={(props) => (
+                        <App searchToggle={setSearchToggle} props={props} />
+                      )}
+                    />
+                  <Route path="/profile/:id" component={Profile} />
+                </Switch>
+                </SearchBarProvider>
+              </UserContext.Provider>
+            </ThemeProvider>
+          </BrowserRouter>
+        );
+      }}
+    </Query>
+  );
+};
 
 export const ME_QUERY = gql`
   {

@@ -18,12 +18,10 @@ const Signout = ({ classes }) => {
         <Button onClick={() => handleSignout(client)}>
           <Typography
             className={classes.root}
-            variant="body1"
-            color="secondary"
           >
             Signout
           </Typography>
-          <ExitToApp className={classes.buttonIcon} color="secondary" />
+          <ExitToApp className={classes.buttonIcon} />
         </Button>
       )}
     </ApolloConsumer>

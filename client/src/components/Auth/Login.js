@@ -29,8 +29,8 @@ const Login = ({ classes, setNewUser }) => {
         <Avatar className={classes.avatar}>
           <Lock />
         </Avatar>
-        <Typography variant="title">Welcome back!</Typography>
-        <Typography variant="title">Please login</Typography>
+        <Typography variant="h5">Welcome back!</Typography>
+        <Typography variant="h6">Please login</Typography>
 
         <Mutation mutation={LOGIN_MUTATION} variables={{ username, password }}>
           {(tokenAuth, { loading, error, called, client }) => {
@@ -99,8 +99,8 @@ const styles = (theme) => ({
   root: {
     width: "auto",
     display: "block",
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
     [theme.breakpoints.up("md")]: {
       width: 400,
       marginLeft: "auto",
@@ -108,27 +108,27 @@ const styles = (theme) => ({
     },
   },
   paper: {
-    marginTop: theme.spacing.unit * 8,
+    marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   title: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
     color: theme.palette.secondary.main,
   },
   avatar: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
     backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: "100%",
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(),
   },
   submit: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 });
 
