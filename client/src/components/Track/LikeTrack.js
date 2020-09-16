@@ -58,9 +58,10 @@ const CREATE_LIKE_MUTATION = gql`
 const styles = (theme) => ({
   iconButton: {
     color: "deeppink",
+    fontSize: "20px"
   },
   icon: {
-    marginLeft: theme.spacing(2),
+    marginLeft: theme.spacing(),
   },
 });
 

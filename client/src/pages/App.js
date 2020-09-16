@@ -8,6 +8,9 @@ import TrackList from "../components/Track/TrackList";
 import CreateTrack from "../components/Track/CreateTrack";
 import Loading from "../components/Shared/Loading";
 import Error from "../components/Shared/Error";
+import Grid from '@material-ui/core/Grid';
+import GridList from "@material-ui/core/GridList";
+
 
 const App = ({ classes }) => {
   const [searchResults, setSearchResults] = useState([]);
@@ -30,7 +33,7 @@ const App = ({ classes }) => {
 
 export const GET_TRACKS_QUERY = gql`
   {
-    tracks {
+    tracks { 
       id
       title
       description
@@ -48,9 +51,8 @@ export const GET_TRACKS_QUERY = gql`
 
 const styles = (theme) => ({
   container: {
-    margin: "0 auto",
-    maxWidth: 960,
-    padding: theme.spacing(2),
+    maxWidth: 1400,
+    marginTop: "75px",
   },
 });
 

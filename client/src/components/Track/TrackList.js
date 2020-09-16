@@ -1,34 +1,89 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
+
+import { useTheme } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionActions from "@material-ui/core/AccordionActions";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Grid from "@material-ui/core/Grid";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardActions from "@material-ui/core/CardActions";
+import Avatar from "@material-ui/core/Avatar";
+import { white } from "@material-ui/core/colors";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import ShareIcon from "@material-ui/icons/Share";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import AudioTrackIcon from "../../assets/svg/audioTrack.svg";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import AudioPlayer from "../Shared/AudioPlayer";
 import LikeTrack from "./LikeTrack";
 import DeleteTrack from "./DeleteTrack";
 import UpdateTrack from "./UpdateTrack";
+import { UserContext } from "../../Root";
 
-const TrackList = ({ classes, tracks }) => (
-  <List>
-    {tracks.map((track) => (
-      <Accordion key={track.id}>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <ListItem className={classes.root}>
-            <LikeTrack trackId={track.id} likeCount={track.likes.length} />
-            <ListItemText
-              primaryTypographyProps={{
-                variant: "subtitle1",
-                color: "primary",
-              }}
-              primary={track.title}
-              secondary={
+const TrackList = ({ classes, tracks }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const currentUser = useContext(UserContext);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const theme = useTheme();
+  console.log(tracks);
+  return (
+    <Grid justify="center" container>
+      {tracks.map((track) => (
+        <>
+          <Card className={classes.root} key={track.id}>
+            <CardHeader
+              avatar={
+                <Avatar aria-label="recipe" className={classes.avatar}>
+                  <Link
+                  className={classes.link}
+                  to={`/profile/${track.postedBy.id}`}
+                  color="white"
+                >
+                  {track.postedBy.username[0]}
+                </Link>
+                </Avatar>
+              }
+              action={
+                currentUser.id === track.postedBy.id && (
+                  <IconButton
+                    onClick={handleClick}
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                  >
+                    <MoreVertIcon />
+                    <Menu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                    >
+                      <MenuItem onClick={handleClose}>
+                        <DeleteTrack track={track} />
+                      </MenuItem>
+                      <MenuItem onClick={handleClose}>
+                        <UpdateTrack track={track} />
+                      </MenuItem>
+                    </Menu>
+                  </IconButton>
+                )
+              }
+              title={track.title}
+              subheader={
                 <Link
                   className={classes.link}
                   to={`/profile/${track.postedBy.id}`}
@@ -37,36 +92,43 @@ const TrackList = ({ classes, tracks }) => (
                 </Link>
               }
             />
-            <AudioPlayer url={track.url} />
-          </ListItem>
-        </AccordionSummary>
-        <AccordionDetails className={classes.details}>
-          <Typography variant="body1">{track.description}</Typography>
-        </AccordionDetails>
-        <AccordionActions>
-          <UpdateTrack track={track} />
-          <DeleteTrack track={track} />
-        </AccordionActions>
-      </Accordion>
-    ))}
-  </List>
-);
+            <div className={classes.player}>
+              <AudioPlayer url={track.url} />
+            </div>
+            <CardContent>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {track.description}
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <LikeTrack trackId={track.id} likeCount={track.likes.length} />
+            </CardActions>
+          </Card>
+        </>
+      ))}
+    </Grid>
+  );
+};
 
-const styles = {
+const styles = (theme) => ({
   root: {
-    display: "flex",
-    flexWrap: "wrap",
+    minWidth: 345,
+    margin: theme.spacing(5),
   },
-  details: {
-    alignItems: "center",
+  media: {
+    height: "auto",
+    paddingTop: "56.25%", // 16:9
+  },
+  avatar: {
+    backgroundColor: "#fff",
   },
   link: {
-    color: "#424242",
+    color: "grey",
     textDecoration: "none",
     "&:hover": {
-      color: "black",
+      color: "white",
     },
   },
-};
+});
 
 export default withStyles(styles)(TrackList);
