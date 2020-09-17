@@ -9,7 +9,7 @@ import ApolloClient, { gql } from "apollo-boost";
 import Auth from "./components/Auth";
 
 const client = new ApolloClient({
-  uri: "http://localhost:8000/graphql/",
+  uri: "/graphql/",
   fetchOptions: {
     credentials: "include",
   },
