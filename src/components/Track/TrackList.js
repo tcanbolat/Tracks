@@ -24,6 +24,7 @@ import LikeTrack from "./LikeTrack";
 import DeleteTrack from "./DeleteTrack";
 import UpdateTrack from "./UpdateTrack";
 import { UserContext } from "../../Root";
+import { Divider } from "@material-ui/core";
 
 const TrackList = ({ classes, tracks }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -92,6 +93,7 @@ const TrackList = ({ classes, tracks }) => {
                 </Link>
               }
             />
+            <Divider variant="middle" />
             <div className={classes.player}>
               <AudioPlayer url={track.url} />
             </div>
@@ -123,10 +125,10 @@ const styles = (theme) => ({
     backgroundColor: "#fff",
   },
   link: {
-    color: "grey",
+    color: "red",
     textDecoration: "none",
     "&:hover": {
-      color: "white",
+      color: "grey",
     },
   },
 });
