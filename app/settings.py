@@ -25,7 +25,7 @@ SECRET_KEY = '(+a9mpmzdcb)$&t0-ovze6(!9o2e_nrnk*z!5)e7d2#6m2*ic%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://tracksapp-django-graphql-react.herokuapp.com']
+ALLOWED_HOSTS = ['tracksapp-django-graphql-react.herokuapp.com']
 
 
 # Application definition
