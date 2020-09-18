@@ -9,24 +9,12 @@ import Profile from "./pages/Profile";
 import Header from "./components/Shared/Header";
 import Loading from "./components/Shared/Loading";
 import Error from "./components/Shared/Error";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import SearchBarProvider from "./context/searchBar-context";
 
 export const UserContext = React.createContext();
 
 const Root = (props) => {
   const [searchToggle, setSearchToggle] = useState(false);
-  const darkTheme = createMuiTheme({
-    palette: {
-      type: "dark",
-    },
-    typography: {
-      allVariants: {
-        color: "white",
-      },
-    },
-  });
 
   return (
     <Query query={ME_QUERY} fetchPolicy="cache-and-network">
@@ -37,8 +25,6 @@ const Root = (props) => {
 
         return (
           <BrowserRouter>
-            <ThemeProvider theme={darkTheme}>
-              <CssBaseline />
               <UserContext.Provider value={currentUser}>
                 <SearchBarProvider>
                   <Header
@@ -57,7 +43,6 @@ const Root = (props) => {
                 </Switch>
                 </SearchBarProvider>
               </UserContext.Provider>
-            </ThemeProvider>
           </BrowserRouter>
         );
       }}

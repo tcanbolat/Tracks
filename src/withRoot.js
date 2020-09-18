@@ -1,27 +1,18 @@
 import React from "react";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import indigo from "@material-ui/core/colors/indigo";
-import orange from "@material-ui/core/colors/orange";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 // A theme with custom primary and secondary color.
 // It's optional.
 const theme = createMuiTheme({
   palette: {
-    primary: {
-      light: indigo[500],
-      main: indigo[700],
-      dark: indigo[900]
-    },
-    secondary: {
-      light: orange[300],
-      main: orange[500],
-      dark: orange[700]
-    }
+    type: "dark",
   },
-  typography: {
-    useNextVariants: true
-  }
+    typography: {
+      allVariants: {
+        color: "white",
+      },
+    },
 });
 
 function withRoot(Component) {

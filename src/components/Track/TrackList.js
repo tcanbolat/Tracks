@@ -12,31 +12,27 @@ import Grid from "@material-ui/core/Grid";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
-import { white } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import AudioTrackIcon from "../../assets/svg/audioTrack.svg";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import AudioPlayer from "../Shared/AudioPlayer";
 import LikeTrack from "./LikeTrack";
 import DeleteTrack from "./DeleteTrack";
 import UpdateTrack from "./UpdateTrack";
 import { UserContext } from "../../Root";
-import { Divider } from "@material-ui/core";
+import Dialog from "@material-ui/core/Dialog";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const TrackList = ({ classes, tracks }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-
+  const [open, setOpen] = useState(false);
   const currentUser = useContext(UserContext);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClickOpen = () => {
+    setOpen(true);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleClose = (value) => {
+    setOpen(false);
   };
 
   const theme = useTheme();
@@ -50,36 +46,22 @@ const TrackList = ({ classes, tracks }) => {
               avatar={
                 <Avatar aria-label="recipe" className={classes.avatar}>
                   <Link
-                  className={classes.link}
-                  to={`/profile/${track.postedBy.id}`}
-                  color="white"
-                >
-                  {track.postedBy.username[0]}
-                </Link>
+                    className={classes.link}
+                    to={`/profile/${track.postedBy.id}`}
+                    color="white"
+                  >
+                    {track.postedBy.username[0]}
+                  </Link>
                 </Avatar>
               }
               action={
                 currentUser.id === track.postedBy.id && (
                   <IconButton
-                    onClick={handleClick}
+                    onClick={handleClickOpen}
                     aria-controls="simple-menu"
                     aria-haspopup="true"
                   >
                     <MoreVertIcon />
-                    <Menu
-                      id="simple-menu"
-                      anchorEl={anchorEl}
-                      keepMounted
-                      open={Boolean(anchorEl)}
-                      onClose={handleClose}
-                    >
-                      <MenuItem onClick={handleClose}>
-                        <DeleteTrack track={track} />
-                      </MenuItem>
-                      <MenuItem onClick={handleClose}>
-                        <UpdateTrack track={track} />
-                      </MenuItem>
-                    </Menu>
                   </IconButton>
                 )
               }
@@ -93,7 +75,23 @@ const TrackList = ({ classes, tracks }) => {
                 </Link>
               }
             />
-            <Divider variant="middle" />
+            {currentUser.id === track.postedBy.id && (
+              <Dialog
+                onClose={handleClose}
+                aria-labelledby="simple-dialog-title"
+                open={open}
+              >
+                <DialogTitle id="simple-dialog-title">options</DialogTitle>
+                <List>
+                  <ListItem autoFocus button>
+                    <DeleteTrack track={track} />
+                  </ListItem>
+                  <ListItem autoFocus button>
+                    <UpdateTrack track={track} />
+                  </ListItem>
+                </List>
+              </Dialog>
+            )}
             <div className={classes.player}>
               <AudioPlayer url={track.url} />
             </div>
@@ -114,6 +112,7 @@ const TrackList = ({ classes, tracks }) => {
 
 const styles = (theme) => ({
   root: {
+    maxWidth: 345,
     minWidth: 345,
     margin: theme.spacing(5),
   },
