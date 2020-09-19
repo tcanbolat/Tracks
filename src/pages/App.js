@@ -8,8 +8,6 @@ import TrackList from "../components/Track/TrackList";
 import CreateTrack from "../components/Track/CreateTrack";
 import Loading from "../components/Shared/Loading";
 import Error from "../components/Shared/Error";
-import Grid from '@material-ui/core/Grid';
-import GridList from "@material-ui/core/GridList";
 
 
 const App = ({ classes }) => {

@@ -17,7 +17,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 import Error from "../Shared/Error";
-import { Typography } from "@material-ui/core";
 
 const UpdateTrack = ({ classes, track }) => {
   const [open, setOpen] = useState(false);
@@ -44,9 +43,9 @@ const UpdateTrack = ({ classes, track }) => {
       data.append("file", file);
       data.append("resource_type", "raw");
       data.append("upload_preset", "tracks-app");
-      data.append("cloud_name", "atc-cloudinary");
+      data.append("cloud_name", process.env.CLOUDINARY_CLOUD_NAME);
       const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/atc-cloudinary/raw/upload",
+        process.env.CLOUDINARY_URL,
         data
       );
       return res.data.url;
