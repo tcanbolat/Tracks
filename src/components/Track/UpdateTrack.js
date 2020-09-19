@@ -43,9 +43,9 @@ const UpdateTrack = ({ classes, track }) => {
       data.append("file", file);
       data.append("resource_type", "raw");
       data.append("upload_preset", "tracks-app");
-      data.append("cloud_name", process.env.CLOUDINARY_CLOUD_NAME);
+      data.append("cloud_name", "atc-cloudinary");
       const res = await axios.post(
-        process.env.CLOUDINARY_URL,
+        "https://api.cloudinary.com/v1_1/atc-cloudinary/raw/upload",
         data
       );
       return res.data.url;
