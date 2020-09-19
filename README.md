@@ -35,9 +35,12 @@ ___
     "date-fns": "^2.16.1",
 ```
 
-<p align="center">using apollo boost and graphql tracks app is able to make queries and mutations to the python/django server. the python server also uses graphql to structure the user and track data. The track files are stored seperatly to cloudinary.</p>
+<p align="center">using apollo boost and graphql tracks app is able to make queries and mutations to the python/django server. the python server also uses graphql to structure the user and track data and redirects all paths to the react app. The track files are stored seperatly to cloudinary and the app is deployed to heroku.</p>
 
 ___
 ___
 
 
+<p align="center">
+<img src="readme_assets/tracksapp.gif" />
+<p/>
