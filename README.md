@@ -40,6 +40,19 @@ ___
 ___
 ___
 
+<h5 align="center">Instructions</h5>
+
+<p>the folder structure and files are configured to work with Heroku.</p>
+<p>to run on localhost, change to apollo uri to "localhost/graphql/" in the index.js file located in the src folder.</p>
+<p>install dependencies with npm install for React and pip install -r requirements.txt for python</p>
+<p>make and run migrations in Python</p>
+<p>you need a cloudinary account to store the track files, add your cloudinary url to the DeleteTrack.js & UpdateTrack.js files located in the src folder.<p>
+<p>open two terminals both pointing to the app root. on the first terminal run python shell to create a virtual enviornment and then python manage.py runserver to start the pthon back end. On the second termianl run npm start to initialize the front end React app.</p>
+
+___
+___
+
+<h5 align="center">Demo</h5>
 
 <p align="center">
 <img src="readme_assets/tracksapp.gif" />
